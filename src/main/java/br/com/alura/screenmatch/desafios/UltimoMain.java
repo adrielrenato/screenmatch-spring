@@ -1,9 +1,6 @@
 package br.com.alura.screenmatch.desafios;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UltimoMain {
@@ -55,5 +52,17 @@ public class UltimoMain {
                 .collect(Collectors.groupingBy(Produto::getCategoria, Collectors.counting()));
 
         System.out.println(contagemPorCategoria);
+
+        Map<String, Optional<Produto>> maisCaroPorCategoria = produtos.stream()
+                .collect(Collectors.groupingBy(Produto::getCategoria,
+                        Collectors.maxBy(Comparator.comparingDouble(Produto::getPreco))));
+
+        System.out.println(maisCaroPorCategoria);
+
+        Map<String, Double> somaPrecoPorCategoria = produtos.stream()
+                .collect(Collectors.groupingBy(Produto::getCategoria,
+                        Collectors.summingDouble(Produto::getPreco)));
+
+        System.out.println(somaPrecoPorCategoria);
     }
 }
